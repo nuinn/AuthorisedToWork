@@ -63,7 +63,7 @@ const romanNumeralsDictionary = {
 // function to convert Roman numeral strings into numbers.
 const makeNumberFromRomanNumeral = str =>{
   let number = 0;
-  let numberHolder;
+  let numberHolder; // the last number that was added.
   let numberCheck; // to run checks in case the next number is greater.
   for (const letter of str.split('')){
     numberHolder = romanNumeralsDictionary[letter];
@@ -83,12 +83,7 @@ const makeNumberFromRomanNumeral = str =>{
 };
 // function which recognises both Roman numerals and numbers and converts them accordingly.
 const convertRomanNumeralsAndNumbers = str => {
-  if (isNaN(parseInt(str))){
-    alert(makeNumberFromRomanNumeral(str));
-  }
-  else{
-    alert(makeRomanNumerals(str));
-  }
+  isNaN(parseInt(str)) ? alert(makeNumberFromRomanNumeral(str)) : alert(makeRomanNumerals(str));
 };
-let input = prompt('Enter a number or a Roman numeral between 0-999:');
+const input = prompt('Enter a number or a Roman numeral between 0-999:');
 convertRomanNumeralsAndNumbers(input);

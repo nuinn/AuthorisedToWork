@@ -69,7 +69,7 @@ const people = [
   },
   {
     name: 'Jack (with permission)',
-    dateOfBirth: '2007-01-11',
+    dateOfBirth: '2007-01-11', // new Date(2007-01-11)
     address: 'London',
     parents: [
       {
@@ -86,7 +86,6 @@ const people = [
   }
 ];
 const today = new Date();
-// const test = {dateOfBirth: '2003-10-21'};
 
 const whatsTheirAge = arr =>{
   const birthYear = parseInt(arr.dateOfBirth.slice(0,4));
@@ -111,19 +110,20 @@ const whoCanWork = arr =>{
     let permission = false;
     if (whatsTheirAge(person) >= 18){
       canWork.push(person);
+      continue;
     }
     for (const parent of person.parents){
-      if (parent.address == person.address){
-        independent = false;
-      }
-      if (parent.authorisesChild == true){
-        permission = true;
-      }
+      // if (parent.address == person.address){
+      //   independent = false;
+      // }
+      independent = parent.address !== person.address ? independent : false;
+      // if (parent.authorisesChild == true){
+      //   permission = true;
+      // }
+      permission = parent.authorisesChild ? true : permission;
     }
-    if (independent == true || permission == true){
-      if (!canWork.includes(person)){
-        canWork.push(person);
-      }
+    if (independent || permission){
+      canWork.push(person);
     }
   }
   return canWork;
